@@ -27,6 +27,12 @@ services:
     container_name: shipping
     depends_on:
     - mysql
+  rabbitmq:
+    image: rabbitmq:3
+    environment:
+      RABBITMQ_DEFAULT_USER: roboshop
+      RABBITMQ_DEFAULT_PASS: roboshop123
+    container_name: rabbitmq
   frontend:
     build: ./frontend
     image: esrasd/frontend:1.0.0
