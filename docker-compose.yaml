@@ -17,6 +17,11 @@ services:
     container_name: cart
     depends_on:
     - redis
+  mysql:
+    build: ./mysql
+    image: esrasd/mysql:1.0.0
+    container_name: mysql
+    
   frontend:
     build: ./frontend
     image: esrasd/frontend:1.0.0
