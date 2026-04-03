@@ -1,7 +1,7 @@
 FROM node:20
 WORKDIR /app
-COPY *.js
-COPY package.json 
+COPY *.js .
+COPY package.json .
 RUN npm install
 ENV REDIS="true" \
     REDIS_URL="redis://redis:6379" \
