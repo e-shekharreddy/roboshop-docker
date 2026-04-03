@@ -3,7 +3,7 @@ EXPOSE 8080
 WORKDIR /app
 COPY pom.xml .
 COPY src .
-RUN npm install
+RUN mvn clean package 
 RUN mv target/shipping-1.0.jar shipping.jar 
 ENV CART_ENDPOINT="cart:8080" \
     DB_HOST="mysql"
