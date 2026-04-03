@@ -21,7 +21,12 @@ services:
     build: ./mysql
     image: esrasd/mysql:1.0.0
     container_name: mysql
-    
+  shipping:
+    build: ./shipping
+    image: esrasd/shipping
+    container_name: shipping
+    depends_on:
+    - mysql
   frontend:
     build: ./frontend
     image: esrasd/frontend:1.0.0
@@ -29,12 +34,10 @@ services:
     ports:
       - "80:80"
     depends_on:
-    - mongodb
     - catalogue
-    - redis
     - user
     - cart
-    
+    - shipping
   mongodb:
     build: ./mongodb # it movies to mongodb directory
     image: esrasd/mongodb:1.0.0 # docker build -t esrasd/mongodb:1.0.0
