@@ -11,6 +11,7 @@ services:
     container_name: user
     depends_on:
     - redis
+    - mongodb
   cart:
     build: ./cart
     image: esrasd/cart:1.0.0
@@ -27,12 +28,29 @@ services:
     container_name: shipping
     depends_on:
     - mysql
+    - cart
   rabbitmq:
     image: rabbitmq:3
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
+  payment:
+    build: ./payment
+    image: esrasd/payment:1.0.0
+    container_name: payment
+    environment:
+      CART_HOST: "cart"
+      CART_PORT: "8080"
+      USER_HOST: "user"
+      USER_PORT: "8080"
+      AMQP_HOST: "rabbitmq"
+      AMQP_USER: "roboshop"
+      AMQP_PASS: "roboshop123"
+    depends_on:
+    - rabbitmq
+    - cart
+    - user
   frontend:
     build: ./frontend
     image: esrasd/frontend:1.0.0
@@ -44,6 +62,7 @@ services:
     - user
     - cart
     - shipping
+    - payment
   mongodb:
     build: ./mongodb # it movies to mongodb directory
     image: esrasd/mongodb:1.0.0 # docker build -t esrasd/mongodb:1.0.0
