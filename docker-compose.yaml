@@ -1,17 +1,42 @@
 services:
   catalogue:
-    build:
-      dockerfile: catalogue.Dockerfile
+    build: ./catalogue
     image: esrasd/catalogue:1.0.0
     container_name: catalogue
     depends_on:
     - mongodb
+  user:
+    build: ./user
+    image: esrasd/user:1.0.0
+    container_name: user
+    depends_on:
+    - redis
+  cart:
+    build: ./cart
+    image: esrasd/cart:1.0.0
+    container_name: cart
+    depends_on:
+    - redis
+  frontend:
+    build: ./frontend
+    image: esrasd/frontend:1.0.0
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+    - mongodb
+    - catalogue
+    - redis
+    - user
+    - cart
+    
   mongodb:
-    build:
-      dockerfile: mongodb.Dockerfile # it movies to mongodb directory
+    build: ./mongodb # it movies to mongodb directory
     image: esrasd/mongodb:1.0.0 # docker build -t esrasd/mongodb:1.0.0
     container_name: mongodb
-
+  redis:
+    image: redis:7.0
+    container_name: redis
 networks:
   default:
     driver: bridge
