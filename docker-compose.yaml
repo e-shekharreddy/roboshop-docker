@@ -23,7 +23,7 @@ services:
     container_name: mysql
   shipping:
     build: ./shipping
-    image: esrasd/shipping
+    image: esrasd/shipping:1.0.0
     container_name: shipping
     depends_on:
     - mysql
