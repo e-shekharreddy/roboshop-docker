@@ -1,1 +1,19 @@
 services:
+  catalogue:
+    build:
+      dockerfile: catalogue.Dockerfile
+    image: esrasd/catalogue:1.0.0
+    container_name: catalogue
+    depends_on:
+    - mongodb
+  mongodb:
+    build:
+      dockerfile: mongodb.Dockerfile # it movies to mongodb directory
+    image: esrasd/mongodb:1.0.0 # docker build -t esrasd/mongodb:1.0.0
+    container_name: mongodb
+
+networks:
+  default:
+    driver: bridge
+    name: roboshop
+    external: false #if true, you need to create network manually
