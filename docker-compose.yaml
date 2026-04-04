@@ -22,6 +22,8 @@ services:
     build: ./mysql
     image: esrasd/mysql:1.0.0
     container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql
   shipping:
     build: ./shipping
     image: esrasd/shipping:1.0.0
@@ -35,6 +37,8 @@ services:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq
   payment:
     build: ./payment
     image: esrasd/payment:1.0.0
@@ -67,11 +71,20 @@ services:
     build: ./mongodb # it movies to mongodb directory
     image: esrasd/mongodb:1.0.0 # docker build -t esrasd/mongodb:1.0.0
     container_name: mongodb
+    volumes:
+    - mongodb:/data/db
   redis:
     image: redis:7.0
     container_name: redis
+    volumes:
+    - redis:/data
 networks:
   default:
     driver: bridge
     name: roboshop
     external: false #if true, you need to create network manually
+volumes:
+  mongodb: # docker create mongodb
+  redis:
+  mysql:
+  rabbitmq:
