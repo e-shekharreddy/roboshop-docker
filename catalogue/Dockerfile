@@ -19,6 +19,7 @@ USER roboshop
 CMD ["server.js"] # this is argument
 ENTRYPOINT ["node"] # this is command
 
+
 # FROM node:20
 # # crete and runs all below commadns on this directory
 # WORKDIR /app
