@@ -12,7 +12,7 @@ RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
     chown -R roboshop:roboshop /app
 COPY --from=builder /app/shipping.jar .
 USER roboshop
-CMD ["java", "-jar", "shipping.jar"]
+ENTRYPOINT ["java", "-jar", "shipping.jar"]
 
 # FROM maven:3.9.14
 # EXPOSE 8080
