@@ -8,8 +8,8 @@ FROM 3.9.25-alpine3.22
 EXPOSE 8080
 WORKDIR /app
 RUN apk add --no-cache pcre
-RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
-    chown -R roboshop:roboshop /app
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+RUN chown -R roboshop:roboshop /app
 COPY --from=builder /install /usr/local
 COPY --chown=roboshop:roboshop payment.ini *.py requirements.txt .
 USER roboshop
